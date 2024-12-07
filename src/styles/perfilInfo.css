@@ -1,0 +1,43 @@
+.perfil-info {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFFFFA; /* COLOR letras */
+  }
+  
+  .perfil-nombre {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+    color: #0B3954; /* COLOR letra */
+  }
+  
+  .perfil-secciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .seccion-item {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .seccion-item.activo {
+    background-color: #06BCC1; /* COLOR fondo */
+  }
+  
+  .seccion-item:hover {
+    background-color: #BFD7DA; /* COLOR fondo */
+  }
+  
+  .seccion-icono {
+    font-size: 1.5em;
+  }
+  
+  .seccion-etiqueta {
+    margin-left: 5px;
+    color: #2D0320; /* COLOR */
+  }
+  
