@@ -53,3 +53,28 @@ export function MessageFloatWindow({ userFriend, selfUser }) {
     );
 }
 */
+
+import '../styles/MessageFloatWindow.css';
+import { useState } from 'react';
+import Draggable from 'react-draggable';
+
+export function MessageFloatWindow({ friendPhoto, friendName, closeChat, initialPosition }) {
+    return (
+        <Draggable handle=".chatHeader" defaultPosition={initialPosition}>
+            <div className="chatWindow">
+                <div className="chatHeader">
+                    <img src={friendPhoto} alt={`${friendName}'s profile`} />
+                    <span>{friendName}</span>
+                    <button onClick={closeChat} className="closeButton">X</button>
+                </div>
+                <div className="chatBody">
+                    {/* mensajes del chat */}
+                </div>
+                <div className="chatFooter">
+                    <input type="text" placeholder="Escribe un mensaje..." />
+                    <button>Enviar</button>
+                </div>
+            </div>
+        </Draggable>
+    );
+}
