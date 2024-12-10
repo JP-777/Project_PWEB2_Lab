@@ -1,43 +1,95 @@
-body {
-    background-color: rgba(73, 111, 223, 0.488);
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0; 
-}
-
 .App {
     display: flex;
     flex-direction: column;
     width: 100%;
     position: relative;
-    border: solid 1px black;
-}
-
-.principalBody {
+  }
+  
+  .principalBody {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.friendBar {
-    width: 20%;
+    justify-content: space-between; /* Distribuye los hijos correctamente */
+    align-items: flex-start; /* Alinea los hijos en la parte superior */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    height: calc(100vh - 50px); /* Altura total menos la barra de navegación */
+    margin-top: 50px; /* Espacio debajo del NavBar */
+    box-sizing: border-box; /* Incluye padding y borde en el cálculo de ancho/alto */
+  }
+  
+  .sidebar {
+    flex: 0 0 20%; /* Ancho fijo del 20% */
+    background-color: #FFFFFA;
+    padding: 10px;
+    height: calc(100vh - 50px); /* Altura total menos la barra de navegación */
+    overflow-y: auto; /* Scroll vertical para contenido que exceda la altura */
+    overflow-x: hidden; /* Evita scroll horizontal */
+    box-sizing: border-box;
+    border-right: 1px solid #ddd; /* Línea de separación decorativa */
+  }
+  
+  .postingPanel {
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 20px;
+    max-height: calc(100vh - 60px); /* Ajuste dinámico de altura */
+    overflow-y: auto; /* Scroll vertical para contenido largo */
+    box-sizing: border-box;
+  }
+  
+  .friendBar {
+    flex: 0 0 20%; /* Ancho fijo del 20% */
     background-color: #333;
     color: white;
     padding: 10px;
-    position: fixed; 
-    right: 0;       
-    top: 0;          
-    height: 100%;    
-    overflow-y: auto; 
-    margin-top: 3.2%;
-}
-
-
-.postingPanel {
-    width: 75%;
-    margin-right: 25%; 
-    padding: 20px;
-}
+    height: calc(100vh - 50px); /* Altura dinámica */
+    overflow-y: auto; /* Scroll vertical */
+    box-sizing: border-box;
+    border-left: 1px solid #ddd; /* Línea de separación decorativa */
+    margin: 0; /* Elimina cualquier margen no deseado */
+  }
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #BFD7DA;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .menu-item.active {
+    background-color: #0056b3;
+    color: #ffffff;
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .menu-item:hover {
+    background-color: #06BCC1;
+    color: #ffffff;
+  }
+  
+  @media (max-width: 768px) {
+    .principalBody {
+      flex-direction: column; /* Cambia de fila a columna */
+    }
+  
+    .sidebar,
+    .friendBar {
+      flex: 1 0 auto; /* Ocupan todo el ancho disponible */
+      height: auto; /* Altura ajustada automáticamente */
+      border: none; /* Elimina las líneas de separación */
+    }
+  
+    .postingPanel {
+      flex: 1 0 auto; /* Ocupa todo el ancho disponible */
+      max-height: none; /* Elimina la restricción de altura */
+    }
+  
+    .navBar {
+      padding: 0 10px; /* Reduce el padding lateral */
+    }
+  
+    .searchContainer {
+      max-width: 150px; /* Ajusta el ancho máximo */
+    }
+  }
+  

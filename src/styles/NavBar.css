@@ -1,19 +1,17 @@
 .navBar {
-    color: #fff;
-    font-size: 15px;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espacio equitativo entre elementos */
+    width: 100%; /* Ancho completo */
+    height: 50px;
+    background-color: #e2ac08;
+    padding: 0 20px; /* Espaciado interno reducido */
     position: fixed;
     top: 0;
     left: 0;
-    padding-left: 80px;
-    padding-right: 80px;
-    background-color: #e2ac08;
-    display: flex;
-    align-items: center;
-    height: 50px;
-    z-index: 9999;
-}
-
+    z-index: 9999; /* Superposición sobre otros elementos */
+    box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+  }
 .logo {
     width: 40px;
     padding-right: 40px;
@@ -21,9 +19,11 @@
 
 .searchContainer {
     position: relative;
-    width: 200px;
-    padding-right: 80px;
+    width: 100%; /* Se adapta al espacio disponible */
+    max-width: 200px; /* Limita el tamaño máximo */
+    padding-right: 20px; /* Reduce el espacio lateral */
 }
+
 
 .searchInput {
     width: 100%;
@@ -51,8 +51,8 @@
 }
 
 .navButtons {
-    margin-right: auto;
-}
+    margin-left: auto; /* Empuja los botones hacia la derecha */
+  }
 
 .selfProfile{
     display: flex;
@@ -68,11 +68,16 @@
     margin-right: 10px;
 }
 
-.navIcons {
-    display: flex;
-    align-items: center;
+.navIcons img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* Reduce el espacio entre íconos */
 }
 
+.navButtons {
+    margin-left: auto; /* Empuja los botones hacia la derecha */
+    margin-right: 0; /* Evita espacios innecesarios */
+}
 .navIcons img{
     color: #fff;
     width: 20px;
@@ -89,4 +94,19 @@ ul{
     padding: 0;
     margin: 0;
     display: flex;
+}
+
+@media (max-width: 768px) {
+    .navBar {
+        padding: 0 10px; /* Reduce el padding lateral */
+    }
+
+    .searchContainer {
+        width: 100%;
+        max-width: 150px; /* Ajusta el ancho máximo */
+    }
+
+    .navIcons img {
+        margin-right: 5px; /* Reduce el espacio entre íconos */
+    }
 }

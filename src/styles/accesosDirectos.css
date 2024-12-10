@@ -1,207 +1,204 @@
 /* Contenedor principal */
 .app-container {
-    background-color: #FFFFFA; /* Fondo primario claro */
-    color: #0B3954; /* Texto principal oscuro */
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .sidebar {
-    background-color: #FFFFFA; /* Fondo primario claro */
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+  background-color: #FFFFFA; /* Fondo primario claro */
+  color: #0B3954; /* Texto principal oscuro */
+  font-family: 'Arial', sans-serif;
+}
+
+.sidebar {
+  flex: 0 0 20%; /* Ancho fijo del 20% */
+  background-color: #FFFFFA;
+  padding: 10px; /* Reduce el padding si es necesario */
+  height: calc(100vh - 50px); /* Altura dinámica debajo del NavBar */
+  overflow-x: hidden; /* Elimina el desplazamiento horizontal */
+  overflow-y: auto; /* Mantiene el desplazamiento vertical */
+  box-sizing: border-box; /* Asegura que padding no sume al ancho total */
+}
+
+.user-menu {
+  width: 100%;
+  border-radius: 12px;
+  padding: 5px;
+  background-color: #FFFFFA; /* Fondo primario claro */
+  color: #0B3954; /* Texto principal */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header del perfil */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px; /* Reducir el margen inferior para evitar espacio innecesario */
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Asegura que el nombre y descripción estén centrados verticalmente */
+  gap: 4px; /* Espacio entre el nombre y la descripción */
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0B3954; /* Color primario */
+  margin: 0; /* Eliminar margen para evitar separación no deseada */
+}
+
+.profile-subtitle {
+  font-size: 14px;
+  color: #555555; /* Texto secundario oscuro */
+  font-style: italic;
+  margin: 0; /* Eliminar margen para evitar separación innecesaria */
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #06BCC1; /* Borde de color secundario */
+  object-fit: cover;
+}
+
+
+
+/* Estilo de los accesos directos */
+.menu-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacio uniforme entre los elementos */
+  width: 100%; /* Asegura que no exceda el ancho del contenedor */
+  overflow-x: hidden; /* Desactiva el scroll horizontal */
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 15px; /* Ajusta el padding interno */
+  background-color: #BFD7DA;
+  border-radius: 8px;
+  width: 100%; /* Asegura que no exceda el ancho del contenedor */
+  box-sizing: border-box; /* Padding incluido en el tamaño total */
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+  background-color: #06BCC1;
+}
+
+.menu-item.active {
+  background-color: #06BCC1; /* Fondo secundario para el ítem activo */
+  color: #ffffff; /* Texto blanco para resaltar */
+}
+
+.menu-item:hover {
+  background-color: #06BCC1; /* Fondo secundario al hacer hover */
+  color: #ffffff; /* Cambiar el texto al pasar por encima */
+  transform: translateY(-3px);
+}
+
+.menu-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #0B3954; /* Color del ícono primario */
+}
+
+.menu-label {
+  font-size: 16px;
+  color: #0B3954; /* Color del texto principal */
+}
+
+/* Barra de iconos adicionales */
+.icon-bar {
+  display: grid; /* Cambia a un diseño basado en grid */
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Ajusta dinámicamente las columnas */
+  gap: 10px; /* Espacio uniforme entre íconos */
+  margin-top: 20px;
+  width: 100%; /* Asegura que no exceda el ancho del contenedor */
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+.icon-item {
+  width: 50px;
+  height: 50px;
+  background-color: #BFD7DA;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.icon-item:hover {
+  background-color: #06BCC1;
+  transform: scale(1.1); /* Efecto de agrandamiento */
+}
+
+
+.icon {
+  font-size: 18px;
+  color: #0B3954; /* Color del ícono principal */
+}
+
+
+/* --- Estilos Responsivos --- */
+
+/* Para pantallas pequeñas (smartphones) */
+@media (max-width: 768px) {
   .user-menu {
-    width: 100%;
-    border-radius: 12px;
-    padding: 15px;
-    background-color: #FFFFFA; /* Fondo primario claro */
-    color: #0B3954; /* Texto principal */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ajustar el ancho */
   }
-  
-  /* Header del perfil */
+
   .profile-header {
-    display: flex;
+    flex-direction: column; /* Cambia a columna en pantallas pequeñas */
     align-items: center;
-    gap: 15px;
-    margin-bottom: 10px; /* Reducir el margen inferior para evitar espacio innecesario */
+    text-align: center;
   }
-  
-  .profile-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Asegura que el nombre y descripción estén centrados verticalmente */
-    gap: 4px; /* Espacio entre el nombre y la descripción */
-  }
-  
-  .profile-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #0B3954; /* Color primario */
-    margin: 0; /* Eliminar margen para evitar separación no deseada */
-  }
-  
-  .profile-subtitle {
-    font-size: 14px;
-    color: #555555; /* Texto secundario oscuro */
-    font-style: italic;
-    margin: 0; /* Eliminar margen para evitar separación innecesaria */
-  }
-  
+
   .profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 2px solid #06BCC1; /* Borde de color secundario */
-    object-fit: cover;
+    width: 80px;
+    height: 80px;
   }
-  
-  
-  
-  /* Estilo de los accesos directos */
-  .menu-options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .menu-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    background-color: #BFD7DA; /* Fondo alternativo */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .menu-item.active {
-    background-color: #06BCC1; /* Fondo secundario para el ítem activo */
-    color: #ffffff; /* Texto blanco para resaltar */
-  }
-  
-  .menu-item:hover {
-    background-color: #06BCC1; /* Fondo secundario al hacer hover */
-    color: #ffffff; /* Cambiar el texto al pasar por encima */
-    transform: translateY(-3px);
-  }
-  
-  .menu-icon {
-    font-size: 18px;
-    margin-right: 10px;
-    color: #0B3954; /* Color del ícono primario */
-  }
-  
-  .menu-label {
+
+  .profile-name {
     font-size: 16px;
-    color: #0B3954; /* Color del texto principal */
   }
-  
-  /* Barra de iconos adicionales */
+
+  .profile-subtitle {
+    font-size: 12px;
+  }
+
+  .menu-options {
+    gap: 8px;
+  }
+
+  .menu-item {
+    padding: 10px 12px;
+  }
+
   .icon-bar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-around;
-    margin-top: 20px;
+    gap: 8px;
   }
-  
+
   .icon-item {
-    width: 50px;
-    height: 50px;
-    background-color: #BFD7DA; /* Fondo alternativo */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
   }
-  
-  .icon-item:hover {
-    background-color: #06BCC1; /* Fondo secundario al hacer hover */
-    transform: scale(1.1);
-  }
-  
+
   .icon {
-    font-size: 18px;
-    color: #0B3954; /* Color del ícono principal */
+    font-size: 16px;
   }
-  
-  
-  /* --- Estilos Responsivos --- */
-  
-  /* Para pantallas pequeñas (smartphones) */
-  @media (max-width: 768px) {
-    .user-menu {
-      width: 90%; /* Ajustar el ancho */
-    }
-  
-    .profile-header {
-      flex-direction: column; /* Cambia a columna en pantallas pequeñas */
-      align-items: center;
-      text-align: center;
-    }
-  
-    .profile-image {
-      width: 80px;
-      height: 80px;
-    }
-  
-    .profile-name {
-      font-size: 16px;
-    }
-  
-    .profile-subtitle {
-      font-size: 12px;
-    }
-  
-    .menu-options {
-      gap: 8px;
-    }
-  
-    .menu-item {
-      padding: 10px 12px;
-    }
-  
-    .icon-bar {
-      gap: 8px;
-    }
-  
-    .icon-item {
-      width: 40px;
-      height: 40px;
-    }
-  
-    .icon {
-      font-size: 16px;
-    }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 768px) {
+  .menu-options {
+    width: 100%; /* Asegura que no exceda el ancho del contenedor */
   }
-  
-  /* Para pantallas muy pequeñas (menos de 480px) */
-  @media (max-width: 480px) {
-    .profile-image {
-      width: 60px;
-      height: 60px;
-    }
-  
-    .profile-name {
-      font-size: 14px;
-    }
-  
-    .profile-subtitle {
-      font-size: 11px;
-    }
-  
-    .icon-item {
-      width: 35px;
-      height: 35px;
-    }
-  
-    .icon {
-      font-size: 14px;
-    }
+
+  .icon-bar {
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Ajusta el tamaño mínimo de los íconos */
   }
-  
+}
