@@ -9,4 +9,5 @@ public class UserDTO {
     private String lastName;
     private String hourAgo;
     private String minuteAgo;
+    private String dayAgo;
 }

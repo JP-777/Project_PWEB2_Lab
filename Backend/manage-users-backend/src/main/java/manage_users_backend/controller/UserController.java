@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.time.Duration;
 
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -72,14 +72,26 @@ public class UserController {
             UserDTO userDTO = new UserDTO();
             userDTO.setId(user.getId());
             userDTO.setName(user.getName());
-            userDTO.setLastName(user.getLastName());
+            userDTO.setLastName(user.getLastname());
 
-            Duration duration = Duration.between(user.getLastActive(), LocalDateTime.now());
-            long hours = duration.toHours();
-            long minutes = duration.toMinutes() % 60;
+            if (user.getLastActive() != null) {
+                Duration duration = Duration.between(user.getLastActive(), LocalDateTime.now());
 
-            userDTO.setHourAgo(String.valueOf(hours));
-            userDTO.setMinuteAgo(String.valueOf(minutes));
+                long days = duration.toDays();
+                long hours = duration.toHours() % 24;
+                long minutes = duration.toMinutes() % 60;
+
+                if (days > 0) {
+                    userDTO.setDayAgo(days + " days ago");
+                } else if (hours > 0) {
+                    userDTO.setHourAgo(hours + " hours ago");
+                } else {
+                    userDTO.setMinuteAgo(minutes + " minutes ago");
+                }
+            } else {
+                userDTO.setHourAgo("N/A");
+                userDTO.setMinuteAgo("N/A");
+            }
 
             return userDTO;
         }).collect(Collectors.toList());

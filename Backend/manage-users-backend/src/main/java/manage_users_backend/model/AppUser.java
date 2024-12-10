@@ -19,7 +19,7 @@ public class AppUser {
     private Long id;
 
     private String name;
-    private String lastName;
+    private String lastname;
     private String username;
     private String password;
 
@@ -27,7 +27,8 @@ public class AppUser {
     private String email;
 
     @Column(name = "last_active")
-    private LocalDateTime lastActive;
+    private LocalDateTime lastActive = LocalDateTime.now();
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

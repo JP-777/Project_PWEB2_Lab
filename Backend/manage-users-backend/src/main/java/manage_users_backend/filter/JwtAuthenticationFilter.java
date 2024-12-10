@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import manage_users_backend.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,12 +20,11 @@ import java.security.Key;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final String jwtSecret;
 
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-
-    public JwtAuthenticationFilter(UserDetailsServiceImpl userDetailsService) {
+    public JwtAuthenticationFilter(UserDetailsServiceImpl userDetailsService, String jwtSecret) {
         this.userDetailsService = userDetailsService;
+        this.jwtSecret = jwtSecret;
     }
 
     @Override
@@ -55,10 +53,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
+        System.out.println("Authorization header: " + bearerToken);
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;
+    }
+    
+    public String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new java.util.Date())
+                .setExpiration(new java.util.Date(System.currentTimeMillis() + 86400000))
+                .signWith(getSigningKey())
+                .compact();
     }
 
     private boolean validateToken(String token) {

@@ -1,10 +1,5 @@
 /* eslint-disable react/prop-types */
 
-// AUN TRABAJANDO EN ESTE COMPONENTE, SI CONSIDERAS QUE PUEDES COMPLETARLO SERIA MARAVILLOSO
-// EXPLICACION: ESTE COMPONENTE PRETENDE SER UNA VENTANA FLOTANTE PARA ENVIAR MENSAJES, AL ESTILO DE LAS VENTANAS DE FACEBOOK
-// NO BORRAR
-
-/*
 import { useEffect, useState } from "react";
 import { MessagesDevice } from "../devices/MessagesDevice";
 import "../styles/MessageFloatWindow.css"
@@ -52,4 +47,3 @@ export function MessageFloatWindow({ userFriend, selfUser }) {
         </div>
     );
 }
-*/

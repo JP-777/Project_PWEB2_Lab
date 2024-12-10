@@ -17,10 +17,6 @@ export function NavBar( {selfProfilePhoto, selfProfileName}) {
         <img className="searchIcon" src={search} alt="Search"/>
       </div>
 
-      {/* ESTE ES EL NAVBAR HAY MUCHOS BOTONES COMO LOS DE ABAJO QUE AUN NO HE PUESTO EN FUNCION
-          SI QUIERES COMPLTARLOS PARA DARLES ESTILOS O REDIRECCIONES SERIA GENIAL, POR AHORA SOLO LO DEJ EN ESTO
-      */}
-
       <div className='navButtons'>
         <strong>
           <ul>

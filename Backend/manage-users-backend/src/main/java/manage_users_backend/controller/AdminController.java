@@ -49,7 +49,7 @@ public class AdminController {
     }
 
     @PostMapping("/create-user")
-public ResponseEntity<?> createUser(@RequestBody Map<String, String> userDetails) {
+    public ResponseEntity<?> createUser(@RequestBody Map<String, String> userDetails) {
     String username = userDetails.get("username");
     String email = userDetails.get("email");
     String password = userDetails.get("password");
