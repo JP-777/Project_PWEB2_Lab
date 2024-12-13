@@ -1,16 +1,22 @@
 import axios from "axios";
 
-const USER_BASE_REST_API_URL = "http://localhost:8080/api/users/all";
+const API_URL = "http://localhost:8080/api"; // Ajusta según tu configuración
 
-class UserDevice {
-    getAllUsers() {
+const UserDevice = {
+    getAllUsers: async () => {
         const token = localStorage.getItem("token");
-        return axios.get(USER_BASE_REST_API_URL, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+        return axios.get(`${API_URL}/users/all`, {
+            headers: { Authorization: `Bearer ${token}` },
         });
-    }
-}
+    },
+    sendFriendRequest: async (userId, recipientId) => {
+        const token = localStorage.getItem("token");
+        return axios.post(`${API_URL}/friendships/request`, {
+            headers: { Authorization: `Bearer ${token}` },
+            senderId: userId,
+            recipientId: recipientId ,
+        });
+    },
+};
 
-export default new UserDevice();
+export default UserDevice;

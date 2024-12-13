@@ -1,49 +1,73 @@
 /* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import "../styles/MessageFloatWindow.css";
+import Draggable from "react-draggable";
+import MessageDevice from "../devices/MessageDevice";
 
-import { useEffect, useState } from "react";
-import { MessagesDevice } from "../devices/MessagesDevice";
-import "../styles/MessageFloatWindow.css"
-
-export function MessageFloatWindow({ userFriend, selfUser }) {
+export function MessageFloatWindow({ friendPhoto, friendName, friendId, closeChat, initialPosition }) {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const userId = localStorage.getItem("userId"); // ID del usuario actual
 
     useEffect(() => {
-        MessagesDevice.getMessagesFrom(selfUser, userFriend).then(messages => {
-            setMessages(messages.data);
-        });
-    }, [selfUser, userFriend]);
+        const fetchMessages = async () => {
+            try {
+                const response = await MessageDevice.getMessagesBetweenUsers(userId, friendId);
+                setMessages(response.data);
+            } catch (error) {
+                console.error("Error fetching messages:", error);
+            }
+        };
 
-    const handleSendMessage = () => {
-        if (newMessage.trim() !== "") {
-            MessagesDevice.sendMessage(selfUser, userFriend, newMessage).then(() => {
-                setMessages([...messages, { content: newMessage, time: new Date().toLocaleTimeString() }]);
-                setNewMessage("");
-            });
+        fetchMessages();
+    }, [userId, friendId]);
+
+    const handleSendMessage = async () => {
+        if (!newMessage.trim()) return;
+
+        const message = {
+            senderId: userId,
+            recipientId: friendId,
+            content: newMessage.trim(),
+        };
+
+        try {
+            const response = await MessageDevice.sendMessage(message);
+            setMessages((prev) => [...prev, response.data]);
+            setNewMessage("");
+        } catch (error) {
+            console.error("Error sending message:", error);
         }
     };
 
     return (
-        <div className="messageFloatWindow">
-            <div className="FriendInfo">
-                <img alt="Profile Image" src={`https://unavatar.io/${userFriend.split(" ")[0]}/`} />
-                <span>{userFriend}</span>
+        <Draggable handle=".chatHeader" defaultPosition={initialPosition}>
+            <div className="chatWindow">
+                <div className="chatHeader">
+                    <img src={friendPhoto} alt={`${friendName}'s profile`} />
+                    <span>{friendName}</span>
+                    <button onClick={closeChat} className="closeButton">X</button>
+                </div>
+                <div className="chatBody">
+                    {messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={msg.senderId === userId ? "messageSent" : "messageReceived"}
+                        >
+                            {msg.content}
+                        </div>
+                    ))}
+                </div>
+                <div className="chatFooter">
+                    <input
+                        type="text"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Escribe un mensaje..."
+                    />
+                    <button onClick={handleSendMessage}>Enviar</button>
+                </div>
             </div>
-            <article>
-                {messages.map((message) => (
-                    <div className="messageGlobe" key={message.id}>
-                        {message.content}
-                        <span>{message.time}</span>
-                    </div>
-                ))}
-            </article>
-            <div>
-                <input
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <button onClick={handleSendMessage}>Send</button>
-            </div>
-        </div>
+        </Draggable>
     );
 }

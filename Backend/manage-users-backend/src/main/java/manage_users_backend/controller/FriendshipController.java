@@ -1,9 +1,12 @@
 package manage_users_backend.controller;
 
 import manage_users_backend.model.*;
-import manage_users_backend.service.*;
+import manage_users_backend.service.FriendshipService;
+import manage_users_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -14,15 +17,37 @@ public class FriendshipController {
     @Autowired
     private FriendshipService friendshipService;
 
-    @PostMapping
-    public Friendship addFriend(@RequestBody Friendship friendship) {
-        return friendshipService.addFriend(friendship.getUser1(), friendship.getUser2());
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/send")
+    public Friendship sendFriendRequest(@RequestParam Long senderId, @RequestParam Long receiverId) {
+        AppUser sender = userService.getUserById(senderId).orElseThrow();
+        AppUser receiver = userService.getUserById(receiverId).orElseThrow();
+        return friendshipService.sendFriendRequest(senderId, receiverId);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Friendship> getAllFriends(@PathVariable Long userId) {
-        AppUser user = new AppUser();
-        user.setId(userId);
-        return friendshipService.getAllFriends(user);
+    @PutMapping("/{id}/respond")
+    public Friendship respondToFriendRequest(@PathVariable Long id, @RequestParam FriendshipStatus status) {
+        return friendshipService.respondToFriendRequest(id, status);
     }
+
+    @GetMapping("/pending/{userId}")
+    public List<Friendship> getPendingRequests(@PathVariable Long userId) {
+        AppUser receiver = userService.getUserById(userId).orElseThrow();
+        return friendshipService.getPendingRequests(receiver);
+    }
+
+    @GetMapping("/friends/{userId}")
+    public List<Friendship> getAcceptedFriends(@PathVariable Long userId) {
+        AppUser user = userService.getUserById(userId).orElseThrow();
+        return friendshipService.getAcceptedFriends(user);
+    }
+
+    @PostMapping("/friendships/request")
+    public ResponseEntity<String> sendFriendRequest(@RequestBody FriendshipRequestDTO request) {
+        friendshipService.sendFriendRequest(request.getSenderId(), request.getRecipientId());
+        return ResponseEntity.ok("Friend request sent successfully.");
+    }
+
 }

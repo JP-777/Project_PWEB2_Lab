@@ -3,16 +3,13 @@ import { FriendBar } from './components/FriendBar.jsx';
 import { NavBar } from './components/NavBar.jsx';
 import { PostingPanel } from './components/PostingPanel.jsx';
 import { LoginForm } from './components/LoginForm';
-import { RegisterForm } from "./components/RegisterForm";
+import { RegisterForm } from './components/RegisterForm';
+import { AccessBar } from './components/AccessBar.jsx';
+import { FriendCard } from './components/FriendCard.jsx';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 export function App() {
-
-    useEffect(() => {
-        localStorage.removeItem('token');
-        setIsAuthenticated(false);
-    }, []);
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -35,7 +32,6 @@ export function App() {
         }
     }, []);
     
-    
     const handleLoginSuccess = () => {
         setIsAuthenticated(true);
     };
@@ -53,36 +49,25 @@ export function App() {
                 )}
                 <div className="principalBody">
                     <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                isAuthenticated ? (
+                        <Route path="/" element={isAuthenticated ? (
                                     <>
-                                        
-                                        <FriendBar />
-                                        <PostingPanel
-                                            content={[
-                                                { id: 1, userName: "Saul Andre Sivincha Machaca" },
-                                                { id: 2, userName: "Matias Dario Davila Flores" },
-                                                { id: 3, userName: "Jefferson Joao Basurco Cassani" },
-                                            ]}
-                                        />
+                                      <AccessBar/>
+                                      <PostingPanel
+                                        content={[
+                                          { id: 1, userName: "Saul Andre Sivincha Machaca" },
+                                          { id: 2, userName: "Matias Dario Davila Flores" },
+                                          { id: 3, userName: "Jefferson Joao Basurco Cassani" },
+                                        ]}
+                                      />
+                                      <FriendBar />
+                                      <FriendCard />
                                     </>
                                 ) : (
-                                    <Navigate to="/login" />
+                                  <Navigate to="/login" />
                                 )
                             }
                         />
-                        <Route
-                            path="/login"
-                            element={
-                                isAuthenticated ? (
-                                    <Navigate to="/" />
-                                ) : (
-                                    <LoginForm onLoginSuccess={handleLoginSuccess} />
-                                )
-                            }
-                        />
+                        <Route path="/login" element={isAuthenticated ? (<Navigate to="/" />) : (<LoginForm onLoginSuccess={handleLoginSuccess} />)}/>
                         <Route path="*" element={<Navigate to={isAuthenticated ? "/" : "/login"} />} />
                         <Route path="/register" element={<RegisterForm />} />
                     </Routes>

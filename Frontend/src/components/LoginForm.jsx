@@ -18,8 +18,11 @@ export function LoginForm({ onLoginSuccess }) {
                 password,
             });
 
-            const token = response.data.token;
+            const { token, userId } = response.data;
+            
             localStorage.setItem("token", token);
+            localStorage.setItem("userId", userId);
+
             onLoginSuccess(token);
         } catch (error) {
             alert("Credenciales incorrectas o problema con el servidor.");
@@ -36,13 +39,14 @@ export function LoginForm({ onLoginSuccess }) {
             const res = await axios.post('http://localhost:8080/api/auth/google', { token: credential });
     
             // Extrae el JWT del backend
-            const jwtToken = res.data.token;
+             const { token: token, userId } = res.data;
     
             // Almacena el JWT en localStorage
-            localStorage.setItem("token", jwtToken);
+            localStorage.setItem("token", token);
+            localStorage.setItem("userId", userId);
     
             // Notifica que el inicio de sesión fue exitoso
-            onLoginSuccess(jwtToken);
+            onLoginSuccess(token);
         } catch (error) {
             console.error("Error:", error.response?.data || error.message); // Muestra el error en detalle
             alert('Error al iniciar sesión con Google.');

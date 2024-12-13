@@ -1,43 +1,53 @@
-body {
-    background-color: rgba(73, 111, 223, 0.488);
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0; 
+.App {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
 }
 
-.App {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-    border: solid 1px black;
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 .principalBody {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 50px;
+}
+
+.accessBar {
+  flex: 0 0 20%;
+  background-color: #FFFFFA;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.postingPanel {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .friendBar {
-    width: 20%;
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    position: fixed; 
-    right: 0;       
-    top: 0;          
-    height: 100%;    
-    overflow-y: auto; 
-    margin-top: 3.2%;
-}
-
-
-.postingPanel {
-    width: 75%;
-    margin-right: 25%; 
-    padding: 20px;
+  flex: 0 0 20%;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-left: 1px solid #ddd;
 }

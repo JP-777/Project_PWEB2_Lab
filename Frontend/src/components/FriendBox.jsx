@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import '../styles/FriendBox.css'
-import { useEffect, useState } from 'react'
+import '../styles/FriendBox.css';
+import { useEffect, useState } from 'react';
 
-export function FriendBox ({ friendPhoto , friendName, lastTimeActive}) {
+export function FriendBox({ friendPhoto, friendName, lastTimeActive, onClick }) {
     const [activeState, setActiveState] = useState();
 
     useEffect(() => {
@@ -11,18 +11,17 @@ export function FriendBox ({ friendPhoto , friendName, lastTimeActive}) {
             const lastActive = new Date();
             lastActive.setHours(lastTimeActive.hours);
             lastActive.setMinutes(lastTimeActive.minutes);
-    
+
             const differenceInMs = now - lastActive;
-    
+
             if (differenceInMs < 0) {
-    
                 const yesterdayLastActive = new Date();
                 yesterdayLastActive.setDate(now.getDate() - 1);
                 yesterdayLastActive.setHours(lastTimeActive.hours);
                 yesterdayLastActive.setMinutes(lastTimeActive.minutes);
-    
+
                 const correctedDifferenceInMs = now - yesterdayLastActive;
-    
+
                 const daysSinceActive = Math.floor(correctedDifferenceInMs / (1000 * 60 * 60 * 24));
                 if (daysSinceActive === 1) {
                     setActiveState("1 day ago");
@@ -46,19 +45,18 @@ export function FriendBox ({ friendPhoto , friendName, lastTimeActive}) {
                 setActiveState(`${daysSinceActive} days ago`);
             }
         }
-    
+
         const checkInterval = setInterval(isActive, 60000);
         isActive();
-    
+
         return () => clearInterval(checkInterval);
     }, [lastTimeActive]);
-    
 
-    return(
-        <div className='friendBox'>
-            <img src={friendPhoto} alt={`${friendName}'s profile`}/>
+    return (
+        <div className="friendBox" onClick={onClick}>
+            <img src={friendPhoto} alt={`${friendName}'s profile`} />
             <span>{friendName}</span>
             <strong>{activeState}</strong>
         </div>
-    )
+    );
 }

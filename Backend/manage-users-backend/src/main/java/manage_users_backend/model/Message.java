@@ -1,11 +1,9 @@
 package manage_users_backend.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Data;
+import java.time.LocalDateTime;
+
 
 @Data
 
@@ -17,12 +15,17 @@ public class Message {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "sender_id", nullable = false)
     private AppUser sender;
 
     @ManyToOne
+    @JoinColumn(name = "recipient_id", nullable = false)
     private AppUser recipient;
 
+    @Column(nullable = false)
     private String content;
-    private Date dateSent;
+
+    @Column(nullable = false)
+    private LocalDateTime timestamp;
 
 }

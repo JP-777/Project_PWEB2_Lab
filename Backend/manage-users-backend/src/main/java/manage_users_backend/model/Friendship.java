@@ -1,12 +1,8 @@
 package manage_users_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import java.util.Date;
+import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -17,10 +13,19 @@ public class Friendship {
     private Long id;
 
     @ManyToOne
-    private AppUser user1;
+    @JoinColumn(name = "sender_id", nullable = false)
+    private AppUser sender;
 
     @ManyToOne
-    private AppUser user2;
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private AppUser receiver;
 
-    private Date dateCreated;
+    @Enumerated(EnumType.STRING)
+    private FriendshipStatus status;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

@@ -1,11 +1,15 @@
 package manage_users_backend.repository;
-import manage_users_backend.model.*;
-import java.util.*;
 
+import manage_users_backend.model.Friendship;
+import manage_users_backend.model.AppUser;
+import manage_users_backend.model.FriendshipStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
-    List<Friendship> findByUser1OrUser2(AppUser user1, AppUser user2);
+import java.util.List;
+import java.util.Optional;
 
-    boolean existsByUser1AndUser2(AppUser user1, AppUser user2);
+public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
+    List<Friendship> findByReceiverAndStatus(AppUser receiver, FriendshipStatus status);
+    List<Friendship> findBySenderAndStatus(AppUser sender, FriendshipStatus status);
+    Optional<Friendship> findBySenderAndReceiver(AppUser sender, AppUser receiver);
 }
